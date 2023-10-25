@@ -1,24 +1,31 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Routes, Route } from 'react-router-dom';
+import { Header } from './Components/Header/Header';
+import { Products } from './Components/Products/Products';
+import { Main } from './Components/Main/Main';
+import { useDispatch } from 'react-redux';
+import { fetchCurrencies } from './redux/action-creator/Currencies/fetchCurrencies';
+import { ProductCard } from './Components/ProductCard/ProductCard';
 
 function App() {
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    dispatch(fetchCurrencies());
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Header />
+      <Routes>
+        <Route path='/' element={<Main />}>
+        </Route>
+        <Route path='/products' element={<Products />}>
+        </Route>
+        <Route path='/products/:productId' element={<ProductCard />}>
+        </Route>
+      </Routes>
     </div>
   );
 }
