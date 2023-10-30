@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { Params, useParams } from 'react-router-dom';
 import { Container } from '../Layout/Container';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchOneProduct } from '../../redux/action-creator/Products/fetchOneProduct';
@@ -13,7 +13,7 @@ import 'swiper/css/navigation';
 import axios from 'axios';
 import { ImageBlock } from './ImageBlock';
 import { InfoBlock } from './InfoBlock';
-import { VariantInt } from '../../redux/types';
+import { BrandInt, VariantInt } from '../../types';
 import { baseUrl } from '../../helpers/baseUrl';
 
 const ProductCardStyled = styled.div`
@@ -25,12 +25,8 @@ display: flex;
 gap: 20px;
 `;
 
-interface BrandInt {
-  name: string;
-}
-
 export const ProductCard = () => {
-  const { productId }: any = useParams();
+  const { productId }: Readonly<Params<string>> = useParams();
 
   const dispatch = useDispatch();
 
@@ -42,7 +38,7 @@ export const ProductCard = () => {
   
   async function fetchVariants(productId: string) {
     try {
-      const response: any = await axios.get(`http://localhost:2000/variants/${productId}`);
+      const response = await axios.get(`http://localhost:2000/variants/${productId}`);
       setVariants(response.data);
     }
 
@@ -53,7 +49,7 @@ export const ProductCard = () => {
 
   async function fetchBrand(brandId: number) {
     try {
-      const response: any = await axios.get(`${baseUrl}/brands/${brandId}`);
+      const response = await axios.get(`${baseUrl}/brands/${brandId}`);
       setBrand(response.data);
     }
 
@@ -63,7 +59,9 @@ export const ProductCard = () => {
   }
 
   React.useEffect(() => {
-    dispatch(fetchOneProduct(productId));
+    if (productId) {
+      dispatch(fetchOneProduct(productId));
+    }
   }, [productId]);
 
   React.useEffect(() => {
@@ -73,7 +71,9 @@ export const ProductCard = () => {
   }, [product]);
 
   React.useEffect(() => {
-    fetchVariants(productId);
+    if (productId !== undefined) {
+      fetchVariants(productId);
+    }
   }, [productId]);
 
   React.useEffect(() => {

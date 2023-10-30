@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction } from 'react';
-import { VariantInt } from '../../redux/types';
+import { VariantInt } from '../../types';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
@@ -48,10 +48,8 @@ interface Props {
   setSelectedVariant: Dispatch<SetStateAction<VariantInt | null>>;
 }
 
-export const VariantsBlock: React.FC <Props> = ({ variants, selectedVariant, setSelectedVariant }) => {
+const VariantsBlock: React.FC <Props> = ({ variants, selectedVariant, setSelectedVariant }) => {
   const { language } = useSelector((state: RootState) => state.language);
-
-  console.log(variants);
 
   return (
     <React.Fragment>
@@ -87,3 +85,6 @@ export const VariantsBlock: React.FC <Props> = ({ variants, selectedVariant, set
     </React.Fragment>
   );
 };
+
+const MemoizedVariants = React.memo(VariantsBlock);
+export { MemoizedVariants as VariantsBlock };

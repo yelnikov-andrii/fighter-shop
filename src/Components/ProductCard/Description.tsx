@@ -1,5 +1,5 @@
 import React from 'react';
-import { ProductInt } from '../../redux/types';
+import { ProductInt } from '../../types';
 import styled from 'styled-components';
 import { MyDropdown } from '../UI/MyDropdown';
 import { useSelector } from 'react-redux';

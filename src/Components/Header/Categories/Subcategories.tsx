@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { fetchSubCategories } from '../../../redux/action-creator/Categories/fetchCategories';
 import { useDispatch, useSelector } from 'react-redux';
 import { SubSubCategory } from './SubSubCategory';
-import { CategoryInt, SubcategoryInt } from '../../../redux/types';
+import { CategoryInt, SubcategoryInt } from '../../../types';
 import { RootState } from '../../../redux/store';
 import { BlockError } from './BlockError';
 import { BlockLoading } from './BlockLoading';

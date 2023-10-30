@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Categories } from './Categories/Categories';
 import { MainHeader } from './MainHeader/MainHeader';
-import { Cart } from '../Cart/Cart';
+import { SideCart } from '../Cart/SideCart';
 
 const StyledHeader = styled.header`
 padding: 50px 20px;
@@ -17,7 +17,7 @@ export const Header = () => {
     <StyledHeader>
       <MainHeader />
       <Categories />
-      <Cart />
+      <SideCart />
     </StyledHeader>
   );
 };

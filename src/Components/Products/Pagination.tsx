@@ -2,18 +2,16 @@ import React, { Dispatch, SetStateAction } from 'react';
 import styled from 'styled-components';
 import { Container } from '../Layout/Container';
 
-interface Props {
-  countOfProducts: number;
-  setPage: Dispatch<SetStateAction<number>>;
-  currentPage: number;
-}
-
 const List = styled.div`
 display: flex;
 gap: 5px;
 `;
 
-const Page = styled.div<any>`
+interface PageInt {
+  current: string;
+}
+
+const Page = styled.div<PageInt>`
 width: 30px;
 height: 30px;
 display: flex;
@@ -28,6 +26,12 @@ border-radius: 4px;
 user-select: none;
 border: ${props => props.current ? '1px solid black' : '1px solid transparent'};
 `;
+
+interface Props {
+  countOfProducts: number;
+  setPage: Dispatch<SetStateAction<number>>;
+  currentPage: number;
+}
 
 export const Pagination: React.FC <Props> = ({ countOfProducts, setPage, currentPage }) => {
   const limit = 9;

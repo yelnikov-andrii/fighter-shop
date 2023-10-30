@@ -7,7 +7,7 @@ import arrow from '../../../images/down.svg';
 import { Subcategories } from './Subcategories';
 import { fetchCategories } from '../../../redux/action-creator/Categories/fetchCategories';
 import { Link } from 'react-router-dom';
-import { CategoryInt } from '../../../redux/types';
+import { CategoryInt } from '../../../types';
 import { RootState } from '../../../redux/store';
 import { BlockError } from './BlockError';
 import { BlockLoading } from './BlockLoading';
@@ -49,7 +49,7 @@ height: 14px;
 object-fit: cover;
 `;
 
-export const Categories = () => {
+const Categories = () => {
   const { language } = useSelector((state: RootState) => state.language);
   const { categories, categoriesLoading, categoriesError, subcategories } = useSelector((state: RootState) => state.categories);
   const [isOpen, setIsOpen] = React.useState(false);
@@ -79,6 +79,11 @@ export const Categories = () => {
     <StyledCategories>
       <Container>
         <Block>
+          <Item
+            to='products'
+          >
+            {language === 'EN' ? 'All products' : 'Усі продукти'}
+          </Item>
           {categories.map((category: CategoryInt) => (
             <Item 
               onMouseOver={() => {
@@ -110,3 +115,6 @@ export const Categories = () => {
     </StyledCategories>
   );
 };
+
+const MemoizedCategories = React.memo(Categories);
+export { MemoizedCategories as Categories };

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
-import { ProductInt } from '../../redux/types';
+import { ProductInt } from '../../types';
 
 const H1 = styled.h1`
 font-size: 24px;

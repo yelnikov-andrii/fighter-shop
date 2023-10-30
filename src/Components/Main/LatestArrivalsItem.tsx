@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { baseUrl } from '../../helpers/baseUrl';
-import { ProductInt, ProductPhotoInt } from '../../redux/types';
+import { ProductInt, ProductPhotoInt } from '../../types';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import styled from 'styled-components';

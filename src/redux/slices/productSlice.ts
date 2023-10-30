@@ -1,8 +1,9 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { ProductInt } from '../types';
+import { ProductInt } from '../../types';
 
 export interface ProductState {
-  products: ProductInt[],
+  products: ProductInt[];
+  productsAllPages: ProductInt[];
   productsLoading: boolean;
   productsError: string;
   countOfProducts: number;
@@ -13,6 +14,7 @@ export interface ProductState {
 
 const initialState: ProductState = {
   products: [],
+  productsAllPages: [],
   productsLoading: false,
   productsError: '',
   countOfProducts: 0,
@@ -53,10 +55,13 @@ export const productSlice = createSlice({
       state.product = null;
       state.productError = action.payload;
       state.productLoading = false;
+    },
+    getProductsAllPagesSuccess: (state: ProductState, action: PayloadAction<ProductInt[]>) => {
+      state.productsAllPages = action.payload;
     }
   },
 });
 
-export const { getProductsError, getProducts, getProductsSuccess, getCountOfProducts, getOneProduct, getOneProductError, getOneProductsSuccess } = productSlice.actions;
+export const { getProductsError, getProducts, getProductsSuccess, getCountOfProducts, getOneProduct, getOneProductError, getOneProductsSuccess, getProductsAllPagesSuccess } = productSlice.actions;
 
 export default productSlice.reducer;

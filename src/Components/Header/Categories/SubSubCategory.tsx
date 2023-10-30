@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { RootState } from '../../../redux/store';
-import { SubcategoryInt, SubsubcategoryInt } from '../../../redux/types';
+import { SubcategoryInt, SubsubcategoryInt } from '../../../types';
 import { BlockError } from './BlockError';
 import { BlockLoading } from './BlockLoading';
 import { baseUrl } from '../../../helpers/baseUrl';

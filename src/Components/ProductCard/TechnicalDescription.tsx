@@ -1,6 +1,6 @@
 import React from 'react';
 import { MyDropdown } from '../UI/MyDropdown';
-import { BrandInt, ProductInt } from '../../redux/types';
+import { BrandInt, ProductInt } from '../../types';
 import { RootState } from '../../redux/store';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';

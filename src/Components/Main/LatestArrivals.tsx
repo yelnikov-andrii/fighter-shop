@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import { baseUrl } from '../../helpers/baseUrl';
-import { ProductInt } from '../../redux/types';
+import { ProductInt } from '../../types';
 import { LatestArrivalsItem } from './LatestArrivalsItem';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
@@ -22,7 +22,7 @@ font-weight: 600;
 text-align: center;
 `;
 
-export const LatestArrivals = () => {
+const LatestArrivals = () => {
   const [latestProducts, setLatestProducts] = React.useState<ProductInt[]>([]);
   const { language } = useSelector((state: RootState) => state.language);
 
@@ -43,8 +43,6 @@ export const LatestArrivals = () => {
     fetchLatestProducts();
   }, []);
 
-  console.log(latestProducts);
-
   return (
     <LatestArrivalsStyled>
       <H2>
@@ -54,9 +52,13 @@ export const LatestArrivals = () => {
         {latestProducts && latestProducts.map(product => (
           <LatestArrivalsItem
             product={product}
+            key={product.id}
           />
         ))}
       </Block>
     </LatestArrivalsStyled>
   );
 };
+
+const MemoizedLatestArrivals = React.memo(LatestArrivals);
+export {MemoizedLatestArrivals as LatestArrivals};

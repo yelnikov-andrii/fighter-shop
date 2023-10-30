@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ProductPhotoInt } from '../../redux/types';
+import { ProductPhotoInt } from '../../types';
 import { MyModal } from '../UI/MyModal';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';

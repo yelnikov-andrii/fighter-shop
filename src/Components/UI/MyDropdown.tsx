@@ -14,8 +14,12 @@ const SelectButton = styled.div`
   border-radius: 8px;
 `;
 
-const DropdownContent = styled.div<any>`
-  display: ${props => (props.isOpen ? 'block' : 'none')};
+interface DropdownInt {
+  isopen: string;
+}
+
+const DropdownContent = styled.div<DropdownInt>`
+  display: ${props => (props.isopen ? 'block' : 'none')};
   background-color: white;
   border: 1px solid teal;
   border-radius: 8px;
@@ -23,16 +27,22 @@ const DropdownContent = styled.div<any>`
   padding: 5px 10px;
 `;
 
-export const MyDropdown: React.FC <any> = ({ butttonContent, children }) => {
+interface Props {
+  butttonContent: string;
+  children: React.ReactNode;
+}
+
+export const MyDropdown: React.FC <Props> = ({ butttonContent, children }) => {
   const [isOpen, setIsOpen] = React.useState(false);
-  const dropdownRef = React.useRef<any>(null);
+  const dropdownRef = React.useRef<HTMLDivElement | null>(null);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
 
   const closeDropdown = (event: MouseEvent) => {
-    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+    const target = event.target as Node;
+    if (dropdownRef.current && !dropdownRef.current.contains(target)) {
       setIsOpen(false);
     }
   };
@@ -56,7 +66,7 @@ export const MyDropdown: React.FC <any> = ({ butttonContent, children }) => {
       </SelectButton>
       {isOpen && (
         <DropdownContent 
-          isOpen={isOpen}
+          isopen={isOpen ? 'true' : ''}
         >
           {children}
         </DropdownContent>

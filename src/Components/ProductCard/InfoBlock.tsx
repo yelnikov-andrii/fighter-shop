@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import styled from 'styled-components';
-import { BrandInt, ProductInt, VariantInt } from '../../redux/types';
+import { BrandInt, ProductInt, VariantInt } from '../../types';
 import { NameAndPrice } from './NameAndPrice';
 import { VariantsBlock } from './VariantsBlock';
 import { Description } from './Description';
@@ -9,8 +9,8 @@ import { QuantityBlock } from './QuantityBlock';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { addProductToCart } from '../../redux/slices/cartSlice';
-import axios from 'axios';
-import { baseUrl } from '../../helpers/baseUrl';
+// import axios from 'axios';
+// import { baseUrl } from '../../helpers/baseUrl';
 
 interface PropsBlockItem {
   hover?: string;
@@ -38,6 +38,14 @@ font-size: 14px;
 font-weight: 300;
 `;
 
+const Alert = styled.p`
+margin: 10px 0;
+color: teal;
+font-size: 16px;
+font-weight: 600;
+border-radius: 8px;
+`;
+
 interface Props {
   product: ProductInt | null;
   brand: BrandInt | undefined;
@@ -50,6 +58,7 @@ export const InfoBlock: React.FC <Props> = ({ product, variants, setVariants, br
   const [quantity, setQuantity] = React.useState(1);
   const [selectedVariant, setSelectedVariant] = React.useState(variants.length > 0 ? variants[0] : null);
   const [quantityError, setQuantityError] = React.useState('');
+  const [afterAddedMessage, setAfterAddedMessage] = React.useState('');
 
   const dispatch = useDispatch();
 
@@ -59,18 +68,18 @@ export const InfoBlock: React.FC <Props> = ({ product, variants, setVariants, br
     }
   }, [variants]);
 
-  async function updateCountOfProducts(variantId: number, quantity: number) {
-    try {
-      await axios.put(`${baseUrl}/variants/${variantId}`, { quantity });
-      if (product) {
-        const response = await axios.get(`${baseUrl}/variants/${product.id}`);
-        setVariants(response.data);
-      }
-    }
-    catch(e) {
-      console.log(e);
-    }
-  }
+  // async function updateCountOfProducts(variantId: number, quantity: number) {
+  //   try {
+  //     await axios.put(`${baseUrl}/variants/${variantId}`, { quantity });
+  //     if (product) {
+  //       const response = await axios.get(`${baseUrl}/variants/${product.id}`);
+  //       setVariants(response.data);
+  //     }
+  //   }
+  //   catch(e) {
+  //     console.log(e);
+  //   }
+  // }
 
   async function addProductIntoCart() {
     if (selectedVariant) {
@@ -83,9 +92,15 @@ export const InfoBlock: React.FC <Props> = ({ product, variants, setVariants, br
           return;
         }
       } else {
-        const newProductInCart = {...product, quantity, variant: selectedVariant.id};
+        const newProductInCart = {...product, quantity, variant: selectedVariant};
         dispatch(addProductToCart(newProductInCart));
-        await updateCountOfProducts(selectedVariant.id, quantity);
+        // const updatedQuantity = selectedVariant.quantity - quantity;
+        if (language === 'EN') {
+          setAfterAddedMessage('Product has been added successfully!');
+        } else {
+          setAfterAddedMessage('Продукт успішно доданий до кошику!');
+        }
+        // await updateCountOfProducts(selectedVariant.id, updatedQuantity);
       }
     }
   }
@@ -96,7 +111,13 @@ export const InfoBlock: React.FC <Props> = ({ product, variants, setVariants, br
         setQuantityError('');
       }, 3000);
     }
-  }, [quantityError]);
+
+    if (afterAddedMessage) {
+      setTimeout(() => {
+        setAfterAddedMessage('');
+      }, 3000);
+    }
+  }, [quantityError, afterAddedMessage]);
 
   return (
     <BlockItem>
@@ -125,6 +146,9 @@ export const InfoBlock: React.FC <Props> = ({ product, variants, setVariants, br
           <QuantityError>
             {quantityError}
           </QuantityError>
+          <Alert>
+            {afterAddedMessage}
+          </Alert>
           <Button
             onClick={() => {
               addProductIntoCart();

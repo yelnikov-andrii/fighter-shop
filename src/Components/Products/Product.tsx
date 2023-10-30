@@ -5,6 +5,7 @@ import { styled } from 'styled-components';
 import { RootState } from '../../redux/store';
 import { Link } from 'react-router-dom';
 import { baseUrl } from '../../helpers/baseUrl';
+import { ProductInt, ProductPhotoInt } from '../../types';
 
 const ListItem = styled(Link)`
 width: calc((100% - 40px) / 3);
@@ -39,8 +40,12 @@ margin: 0;
 color: #333;
 `;
 
-export const Product: React.FC <any> = ({ product }) => {
-  const [photos, setPhotos] = React.useState<any>([]);
+interface Props {
+  product: ProductInt;
+}
+
+export const Product: React.FC <Props> = ({ product }) => {
+  const [photos, setPhotos] = React.useState<ProductPhotoInt[]>([]);
   const [photosLoading, setPhotosLoading] = React.useState(false);
   const [photosError, setPhotosError] = React.useState('');
   const { language } = useSelector((state: RootState) => state.language);
@@ -50,7 +55,7 @@ export const Product: React.FC <any> = ({ product }) => {
     setPhotosLoading(true);
     try {
       if (productId) {
-        const response: any = await axios.get(`${baseUrl}/products-photos/${productId}`);
+        const response = await axios.get(`${baseUrl}/products-photos/${productId}`);
         setPhotos(response.data);
         setPhotosLoading(false);
       }
@@ -62,7 +67,9 @@ export const Product: React.FC <any> = ({ product }) => {
   };
 
   React.useEffect(() => {
-    fetchPhotos(product.id);
+    if (product) {
+      fetchPhotos((product.id).toString());
+    }
   }, [product]);
 
 

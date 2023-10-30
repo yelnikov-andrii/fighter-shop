@@ -43,10 +43,15 @@ const Option = styled.div`
   }
 `;
 
-export const MySelect: React.FC <any> = ({ options, change }) => {
+interface Props {
+  options: string[];
+  change: (option: string) => void;
+}
+
+export const MySelect: React.FC <Props> = ({ options, change }) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [selectedOption, setSelectedOption] = React.useState<string>(options[0]);
-  const dropdownRef = React.useRef<any>(null);
+  const dropdownRef = React.useRef<HTMLDivElement | null>(null);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -59,7 +64,8 @@ export const MySelect: React.FC <any> = ({ options, change }) => {
   };
 
   const closeDropdown = (event: MouseEvent) => {
-    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+    const target = event.target as Node;
+    if (dropdownRef.current && !dropdownRef.current.contains(target)) {
       setIsOpen(false);
     }
   };
