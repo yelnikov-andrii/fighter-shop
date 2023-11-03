@@ -12,7 +12,13 @@ const StyledBanner = styled.div<StyledBannerProps>`
   display: flex;
   gap: 10px;
   height: 100vh;
-  flex-direction: ${props => props.reverse === 'true' ? 'row-reverse' : 'row'}
+  min-height: 400px;
+  flex-direction: ${props => props.reverse === 'true' ? 'row-reverse' : 'row'};
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    height: auto;
+  }
 `;
 
 interface BannerItemProps {
@@ -27,10 +33,16 @@ gap: 10px;
 height: 100%;
 position: relative;
 z-index: 0;
+min-height: 350px;
+
+@media screen and (max-width: 768px) {
+  width: 100%;
+}
 `;
 
 const BannerItemImgBlock = styled.div`
   height: calc((100% - 10px) / 2);
+  min-height: 350px;
   position: relative;
 `;
 
@@ -105,7 +117,7 @@ export const BannerSecond: React.FC <Props> = ({ reverse, elements, }) => {
           <Button
             to={elements[0].linkUrl}
           >
-            Shop now
+            {language === 'EN' ? 'Shop now' : 'Купити зараз'}
           </Button>
         </TxtBlock>
       </BannerItem>
@@ -130,7 +142,7 @@ export const BannerSecond: React.FC <Props> = ({ reverse, elements, }) => {
                 <Button
                   to={element.linkUrl}
                 >
-                  Shop now
+                  {language === 'EN' ? 'Shop now' : 'Купити зараз'}
                 </Button>
               </TxtBlock>
             </BannerItemImgBlock>

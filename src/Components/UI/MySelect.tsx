@@ -13,6 +13,11 @@ const SelectButton = styled.div`
   color: white;
   padding: 5px 10px;
   border-radius: 8px;
+
+  @media screen and (max-width: 768px) {
+    font-size: 14px;
+    padding: 5px;
+  }
 `;
 
 interface OptionsProps {

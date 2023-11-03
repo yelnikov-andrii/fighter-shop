@@ -14,9 +14,15 @@ border: 1px solid teal;
 border-radius: 8px;
 box-sizing: border-box;
 padding: 5px 10px;
+min-width: 250px;
+max-width: 340px;
 
 &:hover {
   border: 2px solid teal;
+}
+
+@media screen and (max-width: 1024px) {
+  width: 100%;
 }
 `;
 

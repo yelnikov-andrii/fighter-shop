@@ -12,6 +12,26 @@ import { RootState } from '../../../redux/store';
 import { BlockError } from './BlockError';
 import { BlockLoading } from './BlockLoading';
 
+const StyledCategories = styled.div`
+position: relative;
+width: 100%;
+margin: 0 auto;
+z-index: 1;
+
+@media screen and (max-width: 1200px) {
+  display: none;
+}
+`;
+
+const Block = styled.div`
+display: flex;
+justify-content: space-between;
+padding: 0 10px 0;
+box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.2);
+border-radius: 4px;
+height: 40px;
+`;
+
 const Item = styled(Link)`
 color: teal;
 font-size: 15px;
@@ -25,22 +45,6 @@ height: 100%;
 &:hover {
   color: #ff5733;
 }
-`;
-
-const StyledCategories = styled.div`
-position: relative;
-width: 100%;
-margin: 0 auto;
-z-index: 1;
-`;
-
-const Block = styled.div`
-display: flex;
-justify-content: space-between;
-padding: 0 10px 0;
-box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.2);
-border-radius: 4px;
-height: 40px;
 `;
 
 const Arrow = styled.img`

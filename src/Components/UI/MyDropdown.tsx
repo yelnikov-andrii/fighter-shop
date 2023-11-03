@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import styled from 'styled-components';
 
@@ -12,6 +13,11 @@ const SelectButton = styled.div`
   color: white;
   padding: 5px 10px;
   border-radius: 8px;
+
+  @media screen and (max-width: 768px) {
+    font-size: 14px;
+    padding: 2px 6px;
+  }
 `;
 
 interface DropdownInt {
@@ -30,9 +36,10 @@ const DropdownContent = styled.div<DropdownInt>`
 interface Props {
   butttonContent: string;
   children: React.ReactNode;
+  autoClose?: boolean;
 }
 
-export const MyDropdown: React.FC <Props> = ({ butttonContent, children }) => {
+export const MyDropdown: React.FC <Props> = ({ butttonContent, children, autoClose }) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const dropdownRef = React.useRef<HTMLDivElement | null>(null);
 
@@ -48,7 +55,9 @@ export const MyDropdown: React.FC <Props> = ({ butttonContent, children }) => {
   };
 
   React.useEffect(() => {
-    document.addEventListener('click', closeDropdown);
+    if (autoClose) {
+      document.addEventListener('click', closeDropdown);
+    }
 
     return () => {
       document.removeEventListener('click', closeDropdown);

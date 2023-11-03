@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Product } from './Product';
 import { Pagination } from './Pagination';
 import { RootState } from '../../redux/store';
-// import { useScrollTop } from '../../hooks/useScrollTop';
+import { useScrollTop } from '../../hooks/useScrollTop';
 import { useFetchProducts } from '../../hooks/useFetchProducts';
 import { FIlter } from './FIlter';
 import { ProductInt } from '../../types';
@@ -20,10 +20,18 @@ const Block = styled.div`
 display: flex;
 gap: 10px;
 width: 100%;
+
+@media screen and (max-width: 768px) {
+  flex-direction: column;
+}
 `;
 
 const ListWrapper = styled.div`
 width: calc((80% - 10px));
+
+@media screen and (max-width: 768px) {
+  width: 100%;
+}
 `;
 
 const List = styled.div`
@@ -72,7 +80,7 @@ export const Products = () => {
   const [page, setPage] = React.useState(1);
 
   useFetchProducts(category, subcategory, subsubcategory, location, page, dispatch, allFilters);
-  // useScrollTop([page], 0, 0);
+  useScrollTop([page], 0, 0);
 
   return (
     <ProductsBlock>

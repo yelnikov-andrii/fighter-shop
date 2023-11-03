@@ -14,6 +14,10 @@ transition: all 0.4s ease;
 &:hover {
   transform: translateY(-10px);
 }
+
+@media screen and (max-width: 768px) {
+  width: 100%;
+}
 `;
 
 const Image = styled.img`

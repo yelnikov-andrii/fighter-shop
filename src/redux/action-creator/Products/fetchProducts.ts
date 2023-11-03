@@ -12,7 +12,6 @@ export const fetchProducts: any = (productInfo: string = ''): any => {
         dispatch(getCountOfProducts(response.data.count));
       } else {
         const response: any = await axios.get(`${baseUrl}/products${productInfo}`);
-        console.log(response);
         dispatch(getProductsSuccess(response.data.rows));
         dispatch(getCountOfProducts(response.data.count));
       }

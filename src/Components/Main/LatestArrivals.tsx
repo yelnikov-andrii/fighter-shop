@@ -13,6 +13,10 @@ margin: 10px 0 0 0;
 
 const Block = styled.div`
 display: flex;
+
+@media screen and (max-width: 768px) {
+  flex-direction: column;
+}
 `;
 
 const H2 = styled.h2`

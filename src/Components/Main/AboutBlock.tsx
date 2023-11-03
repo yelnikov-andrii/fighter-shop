@@ -11,10 +11,18 @@ margin: 50px 0 0 0;
 const Block = styled.div`
 display: flex;
 gap: 20px;
+
+@media screen and (max-width: 768px) {
+  flex-direction: column;
+}
 `;
 
 const BlockItem = styled.div`
 width: calc((100% - 20px) / 2);
+
+@media screen and (max-width: 768px) {
+  width: 100%;
+}
 `;
 
 const H4 = styled.h4`

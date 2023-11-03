@@ -11,6 +11,14 @@ import { FilterOptionInt } from '../../types';
 
 const StyledFilter = styled.div`
 width: 20%;
+
+@media screen and (max-width: 425px) {
+  width: 100%;
+}
+
+@media screen and (min-width: 425px) and (max-width: 768px) {
+  width: 50%;
+}
 `;
 
 const ClearAll = styled.div`
